@@ -38,7 +38,7 @@ In the example above the optional commas have been omitted.
 
 ```
 // All options are optional
-let chemicalInput = new chemicalInput({
+let chemicalInputs = new ChemicalInputs({
     'favouritesSaveHandler' : function(favouriteName, formulaString) {
         // returns boolean true on success
         // returns error message string on failure
@@ -51,9 +51,9 @@ let chemicalInput = new chemicalInput({
 // If save or load handler is missing then favourites interface will be hidden
 
 // To add another Dom element(s) call the add method
-chemicalInputs->add(<DOM element>);
+chemicalInputs.add(<DOM element>);
 // or
-chemicalInputs->add([<DOM element>, <DOM element> ... ]);
+chemicalInputs.add([<DOM element>, <DOM element> ... ]);
 ```
 
 An array of picker elements can be passed when the periodicTablePicker object is created (see 'inputs' option above), or the elements can be passed in later by calling the add method.

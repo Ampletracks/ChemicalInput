@@ -1,0 +1,235 @@
+.chemical-input {
+  width: 100%;
+  padding-bottom: 50px;
+
+  $series: (
+    alkali-metal: #d8f8ff,
+    alkaline-earth-metal: #ffe7e7,
+    lanthanide: #dff3ff,
+    actinide: #ffe6d4,
+    transition-metal: #f3e8fd,
+    post-transition-metal: #d6f9e8,
+    metalloid: #fef7e0,
+    nonmetal: #e2eeff,
+    noble-gas: #ffe7eb,
+    unknown: #e7e7ea
+  );
+
+  @each $name, $val in $series {
+    [data-series="#{$name}"] {
+      --c-bg: #{$val};
+    }
+  }
+
+  &__table-wrap {
+    width: 100%;
+    overflow: auto;
+
+    .periodic-table:empty {
+      display: none;
+    }
+  }
+
+  &__mode {
+    margin: 0 0 5px;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 5px;
+
+    button {
+      border: 1px solid #000;
+      &.active {
+        color: white;
+        background-color: green;
+        border-color: green;
+      }
+    }
+  }
+
+  .periodic-table {
+    min-width: 1200px;
+    padding: 1em 2em;
+    overflow: hidden;
+
+    .periodic-table__element:not(.disabled) {
+      &:hover,
+      &:focus {
+        transform: scale(1.3);
+        box-shadow: 0px 0px 10px rgba(0,0,0,.8);
+        cursor: pointer;
+
+        .weight {
+          display: block;
+        }
+      }
+    }
+
+    &__close-btn {
+      display: grid;
+      place-items: center;
+      background: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  &__chain-header {
+    display: flex;
+    gap: 1em;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__chain-label {
+    margin: 0;
+  }
+
+  &__chain {
+    --element-width: clamp(40px, 10vw, 100px);
+
+    width: 100%;
+    min-height: var(--element-width);
+    position: relative;
+    padding: 5px;
+    display: flex;
+    gap: 20px;
+    background: #efefef;
+    overflow: auto;
+
+    &__input {
+      display: none;
+    }
+    
+    &__elements {
+      display: flex;
+      gap: 20px;
+      background: #efefef;
+
+      .periodic-table__element-wrap {
+        flex-basis: var(--element-width);
+        flex-grow: 0;
+        display: grid;
+        grid-template-columns: var(--element-width);
+
+        &:hover,
+        &:focus-within {
+          flex-basis: 120px;
+          grid-template-columns: var(--element-width) 20px;
+
+          ul {
+            display: flex;
+          }
+        }
+      }
+
+      .periodic-table__element {
+        font-size: calc(0.2 * var(--element-width));
+        cursor: pointer;
+
+        &:focus {
+          border: 1px solid #000;
+        }
+
+        .name {
+          display: none;
+        }
+
+        .pt-count {
+          grid-column: 1 / -1;
+          display: block;
+          text-align: right;
+          font-size: 100%;
+
+          &:not(:focus) {
+            background-color: transparent;
+            border: 0;
+          }
+        }
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: none;
+        flex-direction: column;
+
+        > li {
+          flex: 0 0 20%;
+          display: grid;
+          place-items: center;
+          border: 1px solid #aaa;
+
+          button {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            text-align: center;
+            cursor: pointer;
+
+            svg {
+              display: block;
+              width: 12px;
+              height: 12px;
+              margin: auto;
+            }
+          }
+        }
+      }
+    }
+
+    &__add {
+      width: var(--element-width);
+      display: grid;
+      place-items: center;
+      background: white;
+      border-radius: 5px;
+      cursor: pointer;
+
+      svg {
+        display: block;
+        width: calc(0.3 * var(--element-width));
+        height: calc(0.3 * var(--element-width));
+      }
+    }
+  }
+
+  &__actions {
+    padding-top: 5px;
+    display: flex;
+
+    &__faves-wrap {
+      display: flex;
+
+      button {
+        white-space: nowrap;
+      }
+
+      button[data-action="delete"],
+      button[data-action="save"] {
+        display: none;
+      }
+    }
+  }
+
+  &__faves {
+    &-name{
+      display: none;
+    }
+
+    &[data-selection="compound"] ~ button[data-action="delete"] {
+      display: inline-block;
+    }
+
+    &[data-selection="save-as"] ~ .chemical-input__faves-name,
+    &[data-selection="save-as"] ~  button[data-action="save"] {
+      display: inline-block;
+    }
+  }
+
+  &__chain-data-log {
+    white-space: pre;
+  }
+}

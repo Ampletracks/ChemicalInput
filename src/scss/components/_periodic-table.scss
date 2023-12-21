@@ -1,0 +1,83 @@
+.periodic-table {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 15px repeat(15, 1fr);
+  gap: 5px;
+
+  &__element {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 3px;
+    background-color: var(--c-bg);
+    border: 0;
+    border-radius: 5px;
+
+    span {
+      line-height: 1;
+    }
+
+    .number {
+      text-align: left;
+    }
+
+    .weight {
+      display: none;
+      justify-self: end;
+    }
+
+    .symbol,
+    .name {
+      grid-column: 1 / -1;
+      display: block;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .symbol {
+      font-size: 200%;
+      line-height: 1.4;
+    }
+
+    .number,
+    .weight,
+    .name {
+      font-size: 10px;
+    }
+
+    &.disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  }
+
+  [data-symbol="He"] {
+    grid-column: 19;
+  }
+
+  [data-symbol="B"],
+  [data-symbol="Al"] {
+    grid-column: 14;
+  }
+
+  [data-symbol="Ti"],
+  [data-symbol="Zr"],
+  [data-symbol="Hf"],
+  [data-symbol="Rf"] {
+    grid-column: 5;
+  }
+
+  [data-symbol="Ce"],
+  [data-symbol="Th"] {
+    grid-column: 5;
+  }
+
+  &__vertical-spacer {
+    grid-column: 1 / -1;
+    min-height: 20px;
+  }
+
+  &__close-btn {
+    grid-column: 1;
+    grid-row: 10;
+  }
+}
